@@ -1,56 +1,45 @@
-#
-# project target
-#
-TARGET=blinky
-
-#
-# Defines the part type that this project uses.
-#
 PART=TM4C123GH6PM
 
-#
-# The base directory for TivaWare.
-#
-LABROOT=..
-TIVAROOT=../../TivaDriver
+TivaDriverlib=../../TivaDriver
 
-
-# Echo full command lines.. Comment out for terse
-VERBOSE=1
-
-# Include Debugging flags and disable some optimization
-DEBUG=1
+TARGET=blink
 
 SIZE=arm-none-eabi-size
 
+FLASHOPTS=-v
+FLASH=lm4flash
+CP=/bin/cp
+
 #
-# Support the flash util
-
-ifeq ($(OS),Windows_NT)
-	#Windows stuff
-	FLASHOPTS=--verify
-	FLASHOPTS+=--reset
-	FLASH=${TIVAROOT}/lmflash
-else
-	#Linux stuff
-	FLASHOPTS=-v
-	FLASH=lm4flash
-endif
-
+# Echo full command lines.. Comment out for terse
+VERBOSE=1
+DEBUG=1
 
 #
 # Include the common make definitions.
 #
-include ${LABROOT}/makedefs
+include makedefs
+
+CFLAGS += -Wno-unused-value  
+#CFLAGS += -save-temps  
+
+LDFLAGS += --stats
+
+#
+# Cheasy makefile way to create a target directory
+#
+ODIR = ${COMPILER}
+dummy_build_folder := $(shell mkdir -p ${COMPILER})
+
 
 #
 # Where to find header files that do not live in the source directory.
 #
-IPATH+=.
-IPATH+=${TIVAROOT}
+IPATH += .
+IPATH += ${TivaDriverlib}
 
 #
-# The default rule, which causes the blinky example to be built.
+# The default rule, which causes the FreeRTOS example to be built.
 #
 all: ${COMPILER}
 all: ${COMPILER}/${TARGET}.axf
@@ -62,19 +51,19 @@ clean:
 	@rm -rf ${COMPILER} ${wildcard *~}
 
 #
-# The rule to create the target directory.
+# Rules for building the application
 #
-${COMPILER}:
-	@mkdir -p ${COMPILER}
+${COMPILER}/${TARGET}.axf: ${COMPILER}/blinky.o
+${COMPILER}/${TARGET}.axf: ${COMPILER}/startup_${COMPILER}.o
 
 #
-# Rules for building the blinky example.
+# load map and device memory description
 #
-${COMPILER}/${TARGET}.axf: ${COMPILER}/${TARGET}.o
-${COMPILER}/${TARGET}.axf: ${COMPILER}/startup_${COMPILER}.o
-${COMPILER}/${TARGET}.axf: ${TARGET}.ld
-SCATTERgcc_blinky=${TARGET}.ld
+${COMPILER}/${TARGET}.axf: ti_tm4c123g.ld
+
+SCATTERgcc_${TARGET}=ti_tm4c123g.ld
 ENTRY_${TARGET}=ResetISR
+CFLAGSgcc=-DTARGET_IS_BLIZZARD_RB1
 
 #
 # Include the automatically generated dependency files.
@@ -83,13 +72,9 @@ ifneq (${MAKECMDGOALS},clean)
 -include ${wildcard ${COMPILER}/*.d} __dummy__
 endif
 
-
-
 #
-# A rule to flash and restart the program
+# A rule to flash and restarrt the program
 #
-flash: ${COMPILER}/blinky.axf
+flash: ${COMPILER}/${TARGET}.axf
 	${SIZE} ${COMPILER}/${TARGET}.axf
-	${FLASH} ${FLASHOPTS} ${COMPILER}/blinky.bin
-    
-    
+	${FLASH} ${FLASHOPTS} ${COMPILER}/${TARGET}.bin
