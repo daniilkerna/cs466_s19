@@ -75,37 +75,37 @@ ${COMPILER}/${TARGET}.axf: ${COMPILER}/uartstdio.o
 #
 # Rules for building the Tiva Driver Library core.
 #
-#${COMPILER}/${TARGET}.axf: ${COMPILER}/adc.o
-#${COMPILER}/${TARGET}.axf: ${COMPILER}/aes.o
-#${COMPILER}/${TARGET}.axf: ${COMPILER}/can.o
-#${COMPILER}/${TARGET}.axf: ${COMPILER}/comp.o
+${COMPILER}/${TARGET}.axf: ${COMPILER}/adc.o
+${COMPILER}/${TARGET}.axf: ${COMPILER}/aes.o
+${COMPILER}/${TARGET}.axf: ${COMPILER}/can.o
+${COMPILER}/${TARGET}.axf: ${COMPILER}/comp.o
 ${COMPILER}/${TARGET}.axf: ${COMPILER}/cpu.o
-#${COMPILER}/${TARGET}.axf: ${COMPILER}/crc.o
-#${COMPILER}/${TARGET}.axf: ${COMPILER}/des.o
-#${COMPILER}/${TARGET}.axf: ${COMPILER}/eeprom.o
-#${COMPILER}/${TARGET}.axf: ${COMPILER}/emac.o
-#${COMPILER}/${TARGET}.axf: ${COMPILER}/epi.o
-#${COMPILER}/${TARGET}.axf: ${COMPILER}/flash.o
-#${COMPILER}/${TARGET}.axf: ${COMPILER}/fpu.o
+${COMPILER}/${TARGET}.axf: ${COMPILER}/crc.o
+${COMPILER}/${TARGET}.axf: ${COMPILER}/des.o
+${COMPILER}/${TARGET}.axf: ${COMPILER}/eeprom.o
+${COMPILER}/${TARGET}.axf: ${COMPILER}/emac.o
+${COMPILER}/${TARGET}.axf: ${COMPILER}/epi.o
+${COMPILER}/${TARGET}.axf: ${COMPILER}/flash.o
+${COMPILER}/${TARGET}.axf: ${COMPILER}/fpu.o
 ${COMPILER}/${TARGET}.axf: ${COMPILER}/gpio.o
-#${COMPILER}/${TARGET}.axf: ${COMPILER}/hibernate.o
-#${COMPILER}/${TARGET}.axf: ${COMPILER}/i2c.o
+${COMPILER}/${TARGET}.axf: ${COMPILER}/hibernate.o
+${COMPILER}/${TARGET}.axf: ${COMPILER}/i2c.o
 ${COMPILER}/${TARGET}.axf: ${COMPILER}/interrupt.o
-#${COMPILER}/${TARGET}.axf: ${COMPILER}/lcd.o
+${COMPILER}/${TARGET}.axf: ${COMPILER}/lcd.o
 ${COMPILER}/${TARGET}.axf: ${COMPILER}/mpu.o
-#${COMPILER}/${TARGET}.axf: ${COMPILER}/pwm.o
-#${COMPILER}/${TARGET}.axf: ${COMPILER}/qei.o
-#${COMPILER}/${TARGET}.axf: ${COMPILER}/shamd5.o
-#${COMPILER}/${TARGET}.axf: ${COMPILER}/ssi.o
-#${COMPILER}/${TARGET}.axf: ${COMPILER}/sw_crc.o
+${COMPILER}/${TARGET}.axf: ${COMPILER}/pwm.o
+${COMPILER}/${TARGET}.axf: ${COMPILER}/qei.o
+${COMPILER}/${TARGET}.axf: ${COMPILER}/shamd5.o
+${COMPILER}/${TARGET}.axf: ${COMPILER}/ssi.o
+${COMPILER}/${TARGET}.axf: ${COMPILER}/sw_crc.o
 ${COMPILER}/${TARGET}.axf: ${COMPILER}/sysctl.o
 ${COMPILER}/${TARGET}.axf: ${COMPILER}/sysexc.o
 ${COMPILER}/${TARGET}.axf: ${COMPILER}/systick.o
-#${COMPILER}/${TARGET}.axf: ${COMPILER}/timer.o
+${COMPILER}/${TARGET}.axf: ${COMPILER}/timer.o
 ${COMPILER}/${TARGET}.axf: ${COMPILER}/uart.o
 ${COMPILER}/${TARGET}.axf: ${COMPILER}/udma.o
-#${COMPILER}/${TARGET}.axf: ${COMPILER}/usb.o
-#${COMPILER}/${TARGET}.axf: ${COMPILER}/watchdog.o
+${COMPILER}/${TARGET}.axf: ${COMPILER}/usb.o
+${COMPILER}/${TARGET}.axf: ${COMPILER}/watchdog.o
 
 #
 # Rules for building the FreeRTOS core.
