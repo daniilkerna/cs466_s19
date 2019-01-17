@@ -99,7 +99,7 @@ _setupHardware(void)
 }
 
 static void
-_greenLedTask( void *notUsed )
+_heartbeat( void *notUsed )
 {
     uint32_t green500ms = 500; // 1 second
     uint32_t ledOn = 0;
@@ -125,11 +125,11 @@ _greenLedTask( void *notUsed )
 
     GPIOIntRegister(GPIO_PORTF_BASE, _interruptHandlerPortF);
     GPIOIntTypeSet(GPIO_PORTF_BASE, SW1, GPIO_FALLING_EDGE);
-    
+
     IntPrioritySet(INT_GPIOF, 255);  // Required with FreeRTOS 10.1.1, 
     GPIOIntEnable(GPIO_PORTF_BASE, SW1);
 
-    while(1)
+    while(true)
     {
         semRes = xSemaphoreTake( _semBtn, 0);   // Won't block but will return
                                                 // successful if the sem was given
@@ -143,6 +143,7 @@ _greenLedTask( void *notUsed )
 
         ledOn = !ledOn;
         LED(led[ii], ledOn);
+        
         vTaskDelay(green500ms / portTICK_RATE_MS);
     }
 }
@@ -151,11 +152,11 @@ int main( void )
 {
     _setupHardware();
 
-    xTaskCreate(_greenLedTask,
+    xTaskCreate(_heartbeat,
                 "green",
                 configMINIMAL_STACK_SIZE,
                 NULL,
-                tskIDLE_PRIORITY + 2,
+                tskIDLE_PRIORITY + 1,  // higher numbers are higher priority..
                 NULL );
 
     /* Start the tasks and timer running. */
