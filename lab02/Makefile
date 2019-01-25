@@ -8,7 +8,7 @@ FREERTOS=../../FreeRTOSv10.1.1/FreeRTOS/Source
 SIZE=arm-none-eabi-size
 
 FLASHOPTS=-v
-FLASH=/home/miller/bin/lm4flash
+FLASH=lm4flash
 CP=/bin/cp
 
 #
